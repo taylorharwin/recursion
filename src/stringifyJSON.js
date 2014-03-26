@@ -44,17 +44,17 @@ var Counter = '';
     }
 
 //case for objects
-    else {
-        var commacount = 0;
-        Counter += '{';
-        _.each(obj, function (value, key) {
-            if (commacount > 0) {
-                Counter += ',';
-            }
-            Counter += stringifyJSON(key) + ':' + stringifyJSON(value);
-            commacount++;
-        });
-        Counter += "}";
+  else {
+      Counter += '{';
+    var commacounter = 0;
+    for (var item in obj) {
+      if (typeof obj[item] !== 'function' && typeof obj[item] !== 'undefined') {
+        if(commacounter > 0){ Counter += ","};
+        Counter += stringifyJSON(item) + ":" + stringifyJSON(obj[item]);
+        commacounter++;
+      }
     }
-    return Counter;
-};
+    Counter += '}';
+  }
+  return Counter;
+}
