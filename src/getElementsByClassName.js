@@ -4,7 +4,7 @@
 // };
 
 // But instead we're going to implement it from scratch:
-vr getElementsByClassName = function (className) {
+var getElementsByClassName = function (className) {
     var arr = [];
 
     function elementsByClass(element, className, array) {
