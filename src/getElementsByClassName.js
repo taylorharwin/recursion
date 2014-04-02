@@ -3,7 +3,7 @@
 //   return document.getElementsByClassName(className);
 // };
 
-// But instead we're going to implement it from scratch:
+// But in stead we're going to implement it from scratch:
 var getElementsByClassName = function (className) {
     var arr = [];
 
