@@ -4,21 +4,34 @@
 // };
 
 // But in stead we're going to implement it from scratch:
-var getElementsByClassName = function (className) {
-    var arr = [];
+// ]
+// var getElementsByClassName = function (className, node, results) {
+//     results = results || [];
+//     node = node || document.body;
+//         if (node.className === className){
+//           results.push(node);
+// }
+// if (node.childNodes.length > 0){
+// for (var i = 0; i < node.childNodes.length; i++){
+//    results = results.concat(getElementsByClassName(className, node.childNodes[i], results));
+// }
+// }
+// return results;
+// };
+var hasClass = function(node, className){
+  return node.className.split(' ').indexOf(className) !== -1;
+}
 
-    function elementsByClass(element, className, array) {
-        var elements = element.childNodes;
-        for (var i = 0; i < elements.length; i++) {
-            var child = elements[i];
-            if (_.contains(child.classList, className)) {
-                arr.push(child);
-            }
-            if (child.childNodes.length > 0) {
-                elementsByClass(child, className, array);
-            }
-        }
-    }
-    elementsByClass(document.body, className, arr);
-    return arr;
+var getElementsByClassName = function (className, node) {
+    var results = [];
+    node = node || document.body;
+        if (hasClass(node, className)){
+          results.push(node);
+}
+if (node.children){
+for (var i = 0; i < node.children.length; i++){
+   results = results.concat(getElementsByClassName(className, node.children[i]));
+}
+}
+return results;
 };
