@@ -5,56 +5,39 @@
 //Recursive stringify function
 
 var stringifyJSON = function (obj) {
-var Counter = '';
 
-//case where nothing's provided
-    if (!arguments.length) {
-        return Counter;
-    }
+  if (typeof obj === 'number' || obj === null || typeof obj === 'boolean'){
 
-//case for undefined and functions
-    if (typeof obj === 'function' || obj === undefined){
-    Counter = Counter;
+    return obj + '';
   }
-  
-//case for strings
-    else if (typeof obj === 'string') {
-        Counter += "\"" + obj + "\"";
-    }
-//case for null
-  else if (obj === null){
-    Counter += 'null';
+
+  else if (typeof obj === 'string'){
+
+    return '"' + obj + '"';
   }
-  
-//case for numbers and booleans
-  else if (typeof obj === 'number' || typeof obj === 'boolean'){
-        Counter += obj.toString();
-    }
-  
-//case for arrays
-    else if (Array.isArray(obj)) {
-        Counter += '[';
-        _.each(obj, function (element, index) {
-            if (index > 0 && index !== obj.length) {
-                Counter += ',';
-            }
-            Counter += stringifyJSON(element);
-        });
-        Counter += ']';
+
+  else if (Array.isArray(obj)){
+
+    var arr = [];
+    for (var i = 0; i < obj.length; i++){
+
+      arr.push(stringifyJSON(obj[i]));
     }
 
-//case for objects
+    return '[' + arr.join(',') + ']';
+  }
+
   else {
-      Counter += '{';
-    var commacounter = 0;
-    for (var item in obj) {
-      if (typeof obj[item] !== 'function' && typeof obj[item] !== 'undefined') {
-        if(commacounter > 0){ Counter += ","};
-        Counter += stringifyJSON(item) + ":" + stringifyJSON(obj[item]);
-        commacounter++;
+    var holder = [];
+    for (var key in obj){
+
+      if (obj[key] !== undefined && typeof obj[key] !== 'function'){
+
+        holder.push('"' + key + '":' + stringifyJSON(obj[key]));
+
       }
     }
-    Counter += '}';
+
+    return '{' + holder.join(',') + '}';
   }
-  return Counter;
 }
