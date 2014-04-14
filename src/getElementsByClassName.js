@@ -18,14 +18,10 @@
 // }
 // return results;
 // };
-var hasClass = function(node, className){
-  return node.className.split(' ').indexOf(className) !== -1;
-}
-
 var getElementsByClassName = function (className, node) {
     var results = [];
     node = node || document.body;
-        if (hasClass(node, className)){
+        if (node.className.split(' ').indexOf(className) >= 0){
           results.push(node);
 }
 if (node.children){
